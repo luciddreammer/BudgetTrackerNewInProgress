@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="/styles.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <section>
+            <div id="all">
+                <h1>Budget Tracker</h1>
+                <h2>Get All transactions</h2>
+                <button id="get-all-btn">Get All</button>
+                <div id="get-all-div">
+                </div>
+                <h2>Get Transactions By Owner</h2>
+                <input id="ownerInput">
+                <button id="get-by-owner-btn">Get By owner</button>
+                <div id="get-by-owner-div"></div>
+                <h2>Post form (for later)</h2>
+                <form id="newTransaction">
+                    <h3>Transaction name:</h3>
+                    <input id="name" type="text">
+                    <h3>Ammount:</h3>
+                    <input id="ammount" type="number" step="0.01">
+                    <h3>Date:</h3>
+                    <input id="date" type="date">
+                    <h3>Description:</h3>
+                    <textarea id="description"></textarea>
+                    <h3>Who Paid:</h3>
+                    <input id="whoPaid" type="text">
+                    <button id="new-transaction-submit-btn" type="submit">Submit</button>
+                </form>
+            </div>
+        </section>
+    </body>
+    <footer>
+    <script src="/index.js"></script>
+    </footer>
+</html>
