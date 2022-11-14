@@ -10,7 +10,7 @@ namespace BudgetTracker.Services
         private readonly IUserRepository _userRepository;
         private readonly IPasswordHasher<User> _passwordHasher;
 
-        public AuthenticationService(IUserRepository userRepository, IPasswordHasher<User> passwordHasherqwe)
+        public AuthenticationService(IUserRepository userRepository, IPasswordHasher<User> passwordHasher)
         {
             _userRepository = userRepository;
             _passwordHasher = passwordHasher;
