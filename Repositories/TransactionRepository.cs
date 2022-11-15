@@ -1,6 +1,8 @@
 ﻿using BudgetTracker.Data.DataBase;
 using BudgetTracker.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace BudgetTracker.Repositories
 {
@@ -50,7 +52,7 @@ namespace BudgetTracker.Repositories
         }
         public async Task<List<Transaction>> GetTransactionsByDate(DateTime dateTimeFrom, DateTime dateTimeTo)
         {
-            return await _context.Transactions.Where(dt => dt.DateTimeTransaction > dateTimeFrom && dt.DateTimeTransaction < dateTimeTo).ToListAsync();
+            return await _context.Transactions.Where(dt => dt.DateTimeTransaction.Date >= dateTimeFrom.Date && dt.DateTimeTransaction.Date <= dateTimeTo.Date).ToListAsync();
         }
         public async Task<List<Transaction>> GetTransactionsByOwner(string owner)
         {
@@ -63,6 +65,37 @@ namespace BudgetTracker.Repositories
         public async Task<List<Transaction>> GetTransactionByCategory(Category category)
         {
             return await _context.Transactions.Where(c => c.Category == category).ToListAsync();
+        }
+
+        public async Task<List<Transaction>> GetTransactionByFilters(DateTime? from, DateTime? to, string? owner, double? ammountFrom, double? ammountTo, int? categoryId)
+        {
+            IQueryable<Transaction> query = _context.Transactions.AsQueryable();
+            if(from.HasValue)
+            {
+                query = query.Where(i => i.DateTimeTransaction >= from);
+            }
+            if(to.HasValue)
+            {
+                query = query.Where(i => i.DateTimeTransaction <= to);
+            }
+            if(owner != null)
+            {
+                query = query.Where(i => i.WhoPaid == owner);
+            }
+            if(ammountFrom!= null)
+            {
+                query = query.Where(i => i.Ammount >= ammountFrom);
+            }
+            if(ammountTo!= null)
+            {
+                query = query.Where(i => i.Ammount <= ammountTo);
+            }
+            if(categoryId != null)
+            {
+                query = query.Where(i => i.CategoryId == categoryId);
+            }
+
+            return await query.ToListAsync();
         }
     }
 }

@@ -14,5 +14,6 @@ namespace BudgetTracker.Repositories
         Task<List<Transaction>> GetTransactionsByOwner(string owner);
         Task<List<Transaction>> GetTransactionsByAmmount(double ammountFrom, double ammountTo);
         Task<List<Transaction>> GetTransactionByCategory(Category category);
+        Task<List<Transaction>> GetTransactionByFilters(DateTime? from, DateTime? to, string? owner, double? ammountFrom, double? ammountTo, int? categoryId);
     }
 }
