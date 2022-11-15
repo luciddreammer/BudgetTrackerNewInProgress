@@ -14,7 +14,7 @@ namespace BudgetTracker.Controllers
         {
             _categoryRepository = categoryRepository;
         }
-        //Changing this!!
+
         [HttpPost("AddCategory")]
         public async Task<IActionResult> AddCategory(Category category)
         {

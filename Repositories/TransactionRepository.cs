@@ -29,14 +29,15 @@ namespace BudgetTracker.Repositories
             await _context.SaveChangesAsync();
             return newTransaction;
         }
-        public async Task<bool> DeleteTransaction(Transaction transaction)
+        public async Task<bool> DeleteTransaction(int transactionId)
         {
-                _context.Transactions.Remove(transaction);
+                _context.Transactions.Remove(_context.Transactions.First(id => id.Id == transactionId));
                 await _context.SaveChangesAsync();
                 return true;
         }
-        public async Task<Transaction> ModifyTransaction(Transaction transaction,string name, double ammount, DateTime dateTime, string description, string whoPaid)
+        public async Task<Transaction> ModifyTransaction(int transactionId, string name, double ammount, DateTime dateTime, string description, string whoPaid)
         {
+            var transaction = _context.Transactions.FirstOrDefault(id => id.Id == transactionId);
             transaction.Name = name;
             transaction.Ammount = ammount;
             transaction.DateTimeTransaction = dateTime;
@@ -49,22 +50,6 @@ namespace BudgetTracker.Repositories
         public async Task<List<Transaction>> GetAllTransactions()
         {
            return await _context.Transactions.ToListAsync();
-        }
-        public async Task<List<Transaction>> GetTransactionsByDate(DateTime dateTimeFrom, DateTime dateTimeTo)
-        {
-            return await _context.Transactions.Where(dt => dt.DateTimeTransaction.Date >= dateTimeFrom.Date && dt.DateTimeTransaction.Date <= dateTimeTo.Date).ToListAsync();
-        }
-        public async Task<List<Transaction>> GetTransactionsByOwner(string owner)
-        {
-            return await _context.Transactions.Where(o => o.WhoPaid == owner).ToListAsync();
-        }
-        public async Task<List<Transaction>> GetTransactionsByAmmount(double ammountFrom, double ammountTo)
-        {
-            return await _context.Transactions.Where(a => a.Ammount > ammountFrom && a.Ammount < ammountTo).ToListAsync();
-        }
-        public async Task<List<Transaction>> GetTransactionByCategory(Category category)
-        {
-            return await _context.Transactions.Where(c => c.Category == category).ToListAsync();
         }
 
         public async Task<List<Transaction>> GetTransactionByFilters(DateTime? from, DateTime? to, string? owner, double? ammountFrom, double? ammountTo, int? categoryId)
@@ -94,7 +79,6 @@ namespace BudgetTracker.Repositories
             {
                 query = query.Where(i => i.CategoryId == categoryId);
             }
-
             return await query.ToListAsync();
         }
     }

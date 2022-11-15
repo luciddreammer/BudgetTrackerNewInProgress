@@ -22,29 +22,28 @@ namespace BudgetTracker.Controllers
             return Ok();
         }
 
-        [HttpGet("GetTransactions/{owner}")]
-        public async Task<IActionResult> GetTransactionByOwner(string owner)
-        {
-            return Ok(await _transactionRepository.GetTransactionsByOwner(owner));
-        }
-
         [HttpGet("GetTransactions")]
         public async Task<IActionResult> GetAllTransactions()
         {
             return Ok(await _transactionRepository.GetAllTransactions());
         }
 
-        [HttpGet("GetTransaction/ByDate")]
-        public async Task<IActionResult> GetTransactionsByDate(DateTime from, DateTime to)
-        {
-            return Ok(await _transactionRepository.GetTransactionsByDate(from, to));
-        }
-
         [HttpGet("GetTransaction/ByFilters")]
         public async Task<IActionResult> GetTransactionByFilters(DateTime? from, DateTime? to, string? owner, double? ammountFrom, double? ammountTo, int? categoryId)
         {
-            
             return Ok(await _transactionRepository.GetTransactionByFilters(from,to,owner,ammountFrom,ammountTo,categoryId));
+        }
+
+        [HttpDelete("DeleteTransaction")]
+        public async Task<IActionResult> DeleteTransaction(int id)
+        {
+            return Ok(await _transactionRepository.DeleteTransaction(id));
+        }
+
+        [HttpPut("ModifyTransaction")]
+        public async Task<IActionResult> ModifyTransaction(int transasctionId, string name, double ammount, DateTime dateTime, string description, string whoPaid)
+        {
+            return Ok(await _transactionRepository.ModifyTransaction(transasctionId, name, ammount, dateTime, description,whoPaid));
         }
     }
 }
