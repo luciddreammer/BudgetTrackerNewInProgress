@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BudgetTracker.Data.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace BudgetTracker.Models
 {
@@ -7,8 +8,8 @@ namespace BudgetTracker.Models
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
-        public virtual List<Transaction>? TransactionList { get; set; }
+        public List<SubCategory> SubCategories { get; set; }
         public int? UserId { get; set; }
-        public virtual User? User { get; set; }
+        public User? User { get; set; }
     }
 }

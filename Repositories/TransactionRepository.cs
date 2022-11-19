@@ -15,7 +15,7 @@ namespace BudgetTracker.Repositories
             _context = context;
         }
 
-        public async Task<Transaction> AddTransaction(string name, double ammount, DateTime dateTime, string description, string whoPaid)
+        public async Task<Transaction> AddTransaction(string name, double ammount, DateTime dateTime, string description, string whoPaid, int subCategoryId)
         {
             var newTransaction = new Transaction()
             {
@@ -23,7 +23,8 @@ namespace BudgetTracker.Repositories
                 Ammount = ammount,
                 DateTimeTransaction = dateTime,
                 Description = description,
-                WhoPaid = whoPaid
+                WhoPaid = whoPaid,
+                SubCategory = _context.SubCategories.First(id => id.Id == subCategoryId)
             };
             await _context.Transactions.AddAsync(newTransaction);
             await _context.SaveChangesAsync();
@@ -35,7 +36,7 @@ namespace BudgetTracker.Repositories
                 await _context.SaveChangesAsync();
                 return true;
         }
-        public async Task<Transaction> ModifyTransaction(int transactionId, string name, double ammount, DateTime dateTime, string description, string whoPaid)
+        public async Task<Transaction> ModifyTransaction(int transactionId, string name, double ammount, DateTime dateTime, string description, string whoPaid, int subCategoryId)
         {
             var transaction = _context.Transactions.FirstOrDefault(id => id.Id == transactionId);
             transaction.Name = name;
@@ -43,6 +44,7 @@ namespace BudgetTracker.Repositories
             transaction.DateTimeTransaction = dateTime;
             transaction.Description = description;
             transaction.WhoPaid = whoPaid;
+            transaction.SubCategory = _context.SubCategories.First(id => id.Id == subCategoryId);
             _context.Transactions.Update(transaction);
             await _context.SaveChangesAsync();
             return transaction;
@@ -52,7 +54,7 @@ namespace BudgetTracker.Repositories
            return await _context.Transactions.ToListAsync();
         }
 
-        public async Task<List<Transaction>> GetTransactionByFilters(DateTime? from, DateTime? to, string? owner, double? ammountFrom, double? ammountTo, int? categoryId)
+        public async Task<List<Transaction>> GetTransactionByFilters(DateTime? from, DateTime? to, string? owner, double? ammountFrom, double? ammountTo, int? subCategoryId)
         {
             IQueryable<Transaction> query = _context.Transactions.AsQueryable();
             if(from.HasValue)
@@ -75,9 +77,9 @@ namespace BudgetTracker.Repositories
             {
                 query = query.Where(i => i.Ammount <= ammountTo);
             }
-            if(categoryId != null)
+            if(subCategoryId != null)
             {
-                query = query.Where(i => i.CategoryId == categoryId);
+                query = query.Where(i => i.SubCategoryId == subCategoryId);
             }
             return await query.ToListAsync();
         }

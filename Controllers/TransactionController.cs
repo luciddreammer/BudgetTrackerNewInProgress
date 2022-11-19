@@ -9,16 +9,15 @@ namespace BudgetTracker.Controllers
     public class TransactionController : Controller
     {
         private readonly ITransactionRepository _transactionRepository;
-
         public TransactionController(ITransactionRepository transactionRepository)
         {
             _transactionRepository = transactionRepository;
         }
 
         [HttpPost("AddTransaction")]
-        public async Task<IActionResult> AddTransaction(Transaction transaction)
+        public async Task<IActionResult> AddTransaction(Transaction transaction, int categoryId)
         {
-            await _transactionRepository.AddTransaction(transaction.Name, transaction.Ammount, transaction.DateTimeTransaction, transaction.Description, transaction.WhoPaid);
+            await _transactionRepository.AddTransaction(transaction.Name, transaction.Ammount, transaction.DateTimeTransaction, transaction.Description, transaction.WhoPaid, categoryId);
             return Ok();
         }
 
@@ -29,9 +28,9 @@ namespace BudgetTracker.Controllers
         }
 
         [HttpGet("GetTransaction/ByFilters")]
-        public async Task<IActionResult> GetTransactionByFilters(DateTime? from, DateTime? to, string? owner, double? ammountFrom, double? ammountTo, int? categoryId)
+        public async Task<IActionResult> GetTransactionByFilters(DateTime? from, DateTime? to, string? owner, double? ammountFrom, double? ammountTo, int? subCategoryId)
         {
-            return Ok(await _transactionRepository.GetTransactionByFilters(from,to,owner,ammountFrom,ammountTo,categoryId));
+            return Ok(await _transactionRepository.GetTransactionByFilters(from,to,owner,ammountFrom,ammountTo,subCategoryId));
         }
 
         [HttpDelete("DeleteTransaction")]
@@ -41,9 +40,9 @@ namespace BudgetTracker.Controllers
         }
 
         [HttpPut("ModifyTransaction")]
-        public async Task<IActionResult> ModifyTransaction(int transasctionId, string name, double ammount, DateTime dateTime, string description, string whoPaid)
+        public async Task<IActionResult> ModifyTransaction(int transasctionId, string name, double ammount, DateTime dateTime, string description, string whoPaid, int subCategoryId)
         {
-            return Ok(await _transactionRepository.ModifyTransaction(transasctionId, name, ammount, dateTime, description,whoPaid));
+            return Ok(await _transactionRepository.ModifyTransaction(transasctionId, name, ammount, dateTime, description,whoPaid, subCategoryId));
         }
     }
 }
