@@ -16,7 +16,7 @@ namespace BudgetTracker.Repositories
             _context = context;
         }
 
-        public async String AddTransaction(string name, double ammount, DateTime dateTime, string description, string whoPaid, int subCategoryId)
+        public async Task<Transaction> AddTransaction(string name, double ammount, DateTime dateTime, string description, string whoPaid, int subCategoryId)
         {
             var newTransaction = new Transaction()
             {
@@ -29,7 +29,7 @@ namespace BudgetTracker.Repositories
             };
             await _context.Transactions.AddAsync(newTransaction);
             await _context.SaveChangesAsync();
-            return "asd";
+            return newTransaction;
         }
         public async Task<bool> DeleteTransaction(int transactionId)
         {

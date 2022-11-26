@@ -16,7 +16,7 @@ builder.Services.AddCors(options =>
     {
         builder.AllowAnyOrigin()
         .AllowAnyHeader()
-        .WithOrigins("http://127.0.0.1:5500/index.html", "http://127.0.0.1:5500", "http://localhost:5500");
+        .WithOrigins("http://127.0.0.1:5500/index.html", "http://127.0.0.1:5500", "http://localhost:5500", "http://localhost:3000", "http://127.0.0.1:3000");
     });
 });
 
