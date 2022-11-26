@@ -1,0 +1,20 @@
+@font-face {
+    font-family: modernSans;
+    src: url("/src/Fonts/ModerneSansFont.ttf")
+    }
+
+
+.quick-actions-row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    border: 2px solid black;
+}
+
+h3 {
+    font-family: modernSans;
+    font-size: 20px;
+    font-weight: lighter;
+}

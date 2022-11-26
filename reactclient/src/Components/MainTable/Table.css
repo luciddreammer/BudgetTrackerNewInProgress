@@ -1,0 +1,15 @@
+table {
+    font-size: large;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border: 2px solid black;
+    margin-top: 20px;
+}
+
+tr {
+    border: 2px solid black;
+}
+
+th {
+    padding: 20px;
+    border: 2px solid black;
+}

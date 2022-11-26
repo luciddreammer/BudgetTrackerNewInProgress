@@ -1,0 +1,12 @@
+@font-face {
+    font-family: modernSans;
+    src: url("/src/Fonts/ModerneSansFont.ttf")
+    }
+
+.quick-data-split {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    border: 2px solid black;
+}

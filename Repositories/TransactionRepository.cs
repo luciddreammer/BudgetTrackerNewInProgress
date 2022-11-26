@@ -1,5 +1,6 @@
 ﻿using BudgetTracker.Data.DataBase;
 using BudgetTracker.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Linq.Expressions;
@@ -15,7 +16,7 @@ namespace BudgetTracker.Repositories
             _context = context;
         }
 
-        public async Task<Transaction> AddTransaction(string name, double ammount, DateTime dateTime, string description, string whoPaid, int subCategoryId)
+        public async String AddTransaction(string name, double ammount, DateTime dateTime, string description, string whoPaid, int subCategoryId)
         {
             var newTransaction = new Transaction()
             {
@@ -28,7 +29,7 @@ namespace BudgetTracker.Repositories
             };
             await _context.Transactions.AddAsync(newTransaction);
             await _context.SaveChangesAsync();
-            return newTransaction;
+            return "asd";
         }
         public async Task<bool> DeleteTransaction(int transactionId)
         {
