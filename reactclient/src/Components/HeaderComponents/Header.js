@@ -1,6 +1,7 @@
 import QuickActions from "./QuickActions"
 import QuickData from "./QuickData";
 import "./Header.css"
+import React from "react";
 
 
 

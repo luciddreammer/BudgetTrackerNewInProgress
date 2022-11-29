@@ -1,4 +1,5 @@
 import "./QuickActions.css"
+import React from "react";
 
 export default function QuickActions()
 {
